@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            background-color: black;
+        }
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid black;
+        }
+
+        #title {
+            margin: auto;
+            width: 50%;
+            border: 3px solid #2196f3;
+            padding: 10px;
+            text-align: center;
+            color: #e6571f;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #main {
+            margin: auto;
+            width: 50%;
+            /* border: 3px solid #2196f3; */
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <body>
+        <h1 id="title">World Map</h1>
+
+        <div id="main">
+            <p id="p1">This is the map</p>
+        </div>
+
+        <div><button onclick="clickDownload()">Click me</button></div>
+
+        <script>
+            let world = [
+                ["plain", "desert", "ocean"],
+                ["desert", "desert", "ocean"],
+                ["ocean", "ocean", "ocean"],
+            ];
+
+            const main = document.getElementById("main");
+
+            const table = document.createElement("table");
+            main.appendChild(table);
+
+            for (let i = 0; i < 3; i++) {
+                console.log(main);
+                const row = document.createElement("tr");
+                for (let j = 0; j < 3; j++) {
+                    const cell = document.createElement("td");
+                    // cell.innerHTML = world[i][j];
+                    if (world[i][j] == "plain") {
+                        // cell.style.backgroundColor = "green";
+                        let image = document.createElement("img");
+                        image.src = "plain.png";
+                        cell.appendChild(image);
+                    } else if (world[i][j] == "desert") {
+                        // cell.style.backgroundColor = "yellow";
+                        let image = document.createElement("img");
+                        image.src = "desert.png";
+                        cell.appendChild(image);
+                    } else if (world[i][j] == "ocean") {
+                        // cell.style.backgroundColor = "blue";
+                        let image = document.createElement("img");
+                        image.src = "ocean.png";
+                        cell.appendChild(image);
+                    }
+                    // text = document.createTextNode("cell");
+                    // cell.appendChild(text);
+                    const input = document.createElement("input");
+                    // cell.appendChild(input);
+                    row.appendChild(cell);
+                }
+                main.appendChild(row);
+            }
+
+            let switchGrid = () => {
+                console.log("switch");
+            };
+
+            function download(content, fileName, contentType) {
+                var a = document.createElement("a");
+                var file = new Blob([content], { type: contentType });
+                a.href = URL.createObjectURL(file);
+                a.download = fileName;
+                a.click();
+            }
+
+            var myJsonString = JSON.stringify(world);
+            let clickDownload = () => {
+                download(myJsonString, "world.json", "text/plain");
+            };
+        </script>
+    </body>
+</html>
