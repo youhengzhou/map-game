@@ -74,8 +74,6 @@
                 }
             }
 
-            console.log(world);
-
             // let world = [
             //     ["plain", "plain", "ocean", "ocean", "ocean", "ocean"],
             //     ["desert", "ocean", "ocean", "plain", "ocean", "ocean"],
@@ -88,15 +86,9 @@
             let pictureChange = (button) => {
                 let image = button.getElementsByTagName("img")[0];
 
-                console.log(button.id);
-
                 let x = button.id.split(",")[0];
                 let y = button.id.split(",")[1];
-
-                console.log(x, y);
-
-                console.log(button);
-
+ 
                 if (world[x][y] == "plain") {
                     image.src = "ocean.png";
                     world[x][y] = "ocean";
@@ -183,6 +175,7 @@
             }
 
             function download(content, fileName, contentType) {
+                console.log(content);
                 var a = document.createElement("a");
                 var file = new Blob([content], { type: contentType });
                 a.href = URL.createObjectURL(file);
@@ -190,8 +183,8 @@
                 a.click();
             }
 
-            var myJsonString = JSON.stringify(world);
             let clickDownload = () => {
+                let myJsonString = JSON.stringify(world);
                 download(myJsonString, "world.json", "text/plain");
             };
         </script>
