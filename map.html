@@ -13,7 +13,7 @@
         th,
         td {
             text-align: left;
-            padding: 8px;
+            padding: 0px;
             border: 1px solid black;
         }
 
@@ -35,62 +35,143 @@
             padding: 10px;
             text-align: center;
         }
+
+        #bottom {
+            margin: auto;
+            width: 50%;
+            /* border: 3px solid #2196f3; */
+            padding: 10px;
+            text-align: center;
+        }
     </style>
     <body>
         <h1 id="title">World Map</h1>
 
         <div id="main">
-            <p id="p1">This is the map</p>
+            <p id="p1" style="color: white">This is the map</p>
         </div>
 
-        <div><button onclick="clickDownload()">Click me</button></div>
+        <div id="bottom">
+            <button onclick="clickDownload()">Download World Map</button>
+
+            <!-- <button onclick="clickDownload()">
+                <img src="plain.png" width="20" height="20" />
+            </button>
+
+            <input
+                action="javascript:clickDownload()"
+                type="image"
+                src="plain.png"
+            /> -->
+        </div>
 
         <script>
             let world = [
-                ["plain", "desert", "ocean"],
-                ["desert", "desert", "ocean"],
-                ["ocean", "ocean", "ocean"],
+                ["plain", "plain", "ocean", "ocean", "ocean", "ocean"],
+                ["desert", "ocean", "ocean", "plain", "ocean", "ocean"],
+                ["ocean", "plain", "plain", "desert", "ocean", "ocean"],
+                ["ocean", "plain", "desert", "ocean", "ocean", "ocean"],
+                ["desert", "desert", "ocean", "plain", "ocean", "ocean"],
+                ["ocean", "ocean", "ocean", "plain", "ocean", "ocean"],
             ];
+
+            let pictureChange = (button) => {
+                let image = button.getElementsByTagName("img")[0];
+
+                console.log(button.id);
+
+                let x = button.id.split(",")[0];
+                let y = button.id.split(",")[1];
+
+                console.log(x, y);
+
+                console.log(button);
+
+                if (world[x][y] == "plain") {
+                    image.src = "desert.png";
+                    world[x][y] = "desert";
+                } else if (world[x][y] == "desert") {
+                    image.src = "ocean.png";
+                    world[x][y] = "ocean";
+                } else if (world[x][y] == "ocean") {
+                    image.src = "plain.png";
+                    world[x][y] = "plain";
+                }
+            };
 
             const main = document.getElementById("main");
 
             const table = document.createElement("table");
             main.appendChild(table);
 
-            for (let i = 0; i < 3; i++) {
-                console.log(main);
+            for (let i = 0; i < world.length; i++) {
                 const row = document.createElement("tr");
-                for (let j = 0; j < 3; j++) {
+                for (let j = 0; j < world[0].length; j++) {
                     const cell = document.createElement("td");
-                    // cell.innerHTML = world[i][j];
+                    // cell.innerHTML = world[i][j]; // debug
                     if (world[i][j] == "plain") {
                         // cell.style.backgroundColor = "green";
                         let image = document.createElement("img");
                         image.src = "plain.png";
-                        cell.appendChild(image);
+                        image.width = 20;
+                        image.height = 20;
+
+                        let button = document.createElement("button");
+                        button.id = i + "," + j;
+                        button.onclick = () => {
+                            pictureChange(button);
+                        };
+                        button.appendChild(image);
+                        cell.appendChild(button);
                     } else if (world[i][j] == "desert") {
                         // cell.style.backgroundColor = "yellow";
                         let image = document.createElement("img");
                         image.src = "desert.png";
-                        cell.appendChild(image);
+                        image.width = 20;
+                        image.height = 20;
+
+                        let button = document.createElement("button");
+                        button.id = i + "," + j;
+                        button.onclick = () => {
+                            pictureChange(button);
+                        };
+                        button.appendChild(image);
+                        cell.appendChild(button);
                     } else if (world[i][j] == "ocean") {
                         // cell.style.backgroundColor = "blue";
                         let image = document.createElement("img");
                         image.src = "ocean.png";
-                        cell.appendChild(image);
+                        image.width = 20;
+                        image.height = 20;
+
+                        let button = document.createElement("button");
+                        button.id = i + "," + j;
+                        button.onclick = () => {
+                            pictureChange(button);
+                        };
+                        button.appendChild(image);
+                        cell.appendChild(button);
+                    } else {
+                        let image = document.createElement("img");
+                        image.src = "house.png";
+                        image.width = 20;
+                        image.height = 20;
+                        // image.name = "ocean";
+
+                        let button = document.createElement("button");
+                        button.id = i + "," + j;
+                        button.appendChild(image);
+                        cell.appendChild(button);
                     }
+                    // form inside table
                     // text = document.createTextNode("cell");
                     // cell.appendChild(text);
-                    const input = document.createElement("input");
+                    // const input = document.createElement("input");
                     // cell.appendChild(input);
                     row.appendChild(cell);
                 }
                 main.appendChild(row);
             }
-
-            let switchGrid = () => {
-                console.log("switch");
-            };
 
             function download(content, fileName, contentType) {
                 var a = document.createElement("a");
