@@ -66,14 +66,24 @@
         </div>
 
         <script>
-            let world = [
-                ["plain", "plain", "ocean", "ocean", "ocean", "ocean"],
-                ["desert", "ocean", "ocean", "plain", "ocean", "ocean"],
-                ["ocean", "plain", "plain", "desert", "ocean", "ocean"],
-                ["ocean", "plain", "desert", "ocean", "ocean", "ocean"],
-                ["desert", "desert", "ocean", "plain", "ocean", "ocean"],
-                ["ocean", "ocean", "ocean", "plain", "ocean", "ocean"],
-            ];
+            let world = [];
+            for (let i = 0; i < 30; i++) {
+                world.push([]);
+                for (let j = 0; j < 20; j++) {
+                    world[i].push("ocean");
+                }
+            }
+
+            console.log(world);
+
+            // let world = [
+            //     ["plain", "plain", "ocean", "ocean", "ocean", "ocean"],
+            //     ["desert", "ocean", "ocean", "plain", "ocean", "ocean"],
+            //     ["ocean", "plain", "plain", "desert", "ocean", "ocean"],
+            //     ["ocean", "plain", "desert", "ocean", "ocean", "ocean"],
+            //     ["desert", "desert", "ocean", "plain", "ocean", "ocean"],
+            //     ["ocean", "ocean", "ocean", "plain", "ocean", "ocean"],
+            // ];
 
             let pictureChange = (button) => {
                 let image = button.getElementsByTagName("img")[0];
@@ -88,11 +98,11 @@
                 console.log(button);
 
                 if (world[x][y] == "plain") {
-                    image.src = "desert.png";
-                    world[x][y] = "desert";
-                } else if (world[x][y] == "desert") {
                     image.src = "ocean.png";
                     world[x][y] = "ocean";
+                    // } else if (world[x][y] == "desert") {
+                    //     image.src = "ocean.png";
+                    //     world[x][y] = "ocean";
                 } else if (world[x][y] == "ocean") {
                     image.src = "plain.png";
                     world[x][y] = "plain";
@@ -123,20 +133,20 @@
                         };
                         button.appendChild(image);
                         cell.appendChild(button);
-                    } else if (world[i][j] == "desert") {
-                        // cell.style.backgroundColor = "yellow";
-                        let image = document.createElement("img");
-                        image.src = "desert.png";
-                        image.width = 20;
-                        image.height = 20;
+                        // } else if (world[i][j] == "desert") {
+                        //     // cell.style.backgroundColor = "yellow";
+                        //     let image = document.createElement("img");
+                        //     image.src = "desert.png";
+                        //     image.width = 20;
+                        //     image.height = 20;
 
-                        let button = document.createElement("button");
-                        button.id = i + "," + j;
-                        button.onclick = () => {
-                            pictureChange(button);
-                        };
-                        button.appendChild(image);
-                        cell.appendChild(button);
+                        //     let button = document.createElement("button");
+                        //     button.id = i + "," + j;
+                        //     button.onclick = () => {
+                        //         pictureChange(button);
+                        //     };
+                        //     button.appendChild(image);
+                        //     cell.appendChild(button);
                     } else if (world[i][j] == "ocean") {
                         // cell.style.backgroundColor = "blue";
                         let image = document.createElement("img");
@@ -156,7 +166,6 @@
                         image.src = "house.png";
                         image.width = 20;
                         image.height = 20;
-                        // image.name = "ocean";
 
                         let button = document.createElement("button");
                         button.id = i + "," + j;
